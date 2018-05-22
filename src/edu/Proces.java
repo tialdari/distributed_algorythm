@@ -21,7 +21,7 @@ public class Proces {
 		this.processorNumber = processorNumber;
 	}
 
-	public int getArrivalTime() {
+	public Integer getArrivalTime() {
 		return arrivalTime;
 	}
 

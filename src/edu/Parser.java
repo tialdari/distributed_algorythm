@@ -38,7 +38,6 @@ public class Parser {
 			
             Scanner sc = new Scanner(file);            
             String line = sc.nextLine();
-            System.out.println("Skipped line: " + line);
             
             int arrivalTime = 0;
             int exitTime = 0;
