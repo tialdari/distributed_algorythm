@@ -40,19 +40,19 @@ public class Methods {
 
 			 
 			 ArrayList<Integer> nums2 = new ArrayList(nums); 
-			System.out.println( m.recursiveSearch(nums2, 5)); 
+			System.out.println( m.recursiveSearch(nums2, 8)); 
 			
 			 ArrayList<Integer> nums3 = new ArrayList(nums);
-			 System.out.println( m.recursiveSearch(nums3, 4)); 
+			 System.out.println( m.recursiveSearch(nums3, 8)); 
 			 
 			 ArrayList<Integer> nums4 = new ArrayList(nums); 
-			 System.out.println(	 m.recursiveSearch(nums4, 7)); 
+			 System.out.println(	 m.recursiveSearch(nums4, 8)); 
 			
 			 ArrayList<Integer> nums5 = new ArrayList(nums);
 			 System.out.println(	 m.recursiveSearch(nums5, 8)); 
 			 
 			 ArrayList<Integer> nums6 = new ArrayList(nums);
-			 System.out.println(	 m.recursiveSearch(nums6, 9)); 
+			 System.out.println(	 m.recursiveSearch(nums6, 8)); 
 
 	} 
 	

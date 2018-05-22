@@ -12,47 +12,38 @@ public class Main {
 		
 		Parser parser = new Parser("sequence.txt");
 		parser.read();
-		List<Proces> allProcesses = parser.getAllProcesses();
 		
 		int timer = 0;
 		int upperLimit = 50;
 		int migrationNum = 0;
 		int enquiriesNum = 0;
 		
-		Processor [] processors = new Processor [30];
+		ArrayList<Processor> processors = new ArrayList<Processor>();
 		
-		for(int i = 0; i < processors.length; i++) {
-			processors[i] = new Processor(i);
-			//System.out.println("number: " + processors[i].getNumber());
+		for(int i = 0; i < 30; i++) {
+			processors.add(new Processor(i));
 		}
 		
+		List<Proces> allProcesses = parser.getAllProcesses();
 		Iterator<Proces> iterator = allProcesses.iterator();
 		Proces nextProces = iterator.next();
-
-		Integer [] numbers = new Integer[30];
-		for(int i = 0; i < numbers.length; i++) {
-			numbers[i] = i;
-		}
 		
-		ArrayList<Integer> array = new ArrayList<Integer>();
-		array.add(4);
-		array.add(5);
-		array.add(3);
-		array.add(8);
-
+		SearchMethods sm = new SearchMethods();
 		
+		int procNum = 0;
 		
-		
-		/*
 		while(timer < 6945) {
 		
 			if(nextProces.getArrivalTime() <= timer) {	
 				
-				//recursiveSearch();
-				 if(recursiveSearch == false) {
-				 	//assign the process to its own processor
-				 
-				 //here look for executed processes
+				procNum = sm.recursiveSearch(new ArrayList(processors), nextProces, upperLimit);
+				 if(procNum >= 0) {
+					 processors.get(procNum).addProcess(nextProces);
+					 System.out.print(" current usage: " + processors.get(procNum).getCurrentUsage() + "\n");
+				 }else {
+					 System.out.println("To your own processor");
+					 processors.get(nextProces.getProcessorNumber()).addProcess(nextProces);
+				 }
 				
 				nextProces = iterator.next();
 			}			
@@ -65,8 +56,8 @@ public class Main {
 			
 			 
 		}
-		//System.out.println("the end");
-		*/
+		System.out.println("the end");
+		
 	}
 
 }
