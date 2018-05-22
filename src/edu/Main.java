@@ -13,7 +13,7 @@ public class Main {
 		List<Proces> allProcesses = parser.getAllProcesses();
 		
 		int timer = 0;
-		int upperLimit = 0;
+		int upperLimit = 50;
 		int migrationNum = 0;
 		int enquiriesNum = 0;
 		
@@ -28,16 +28,28 @@ public class Main {
 		
 		while(timer < 6945) {
 			
-			if(nextProces.getArrivalTime() <= timer) {
-				
-				System.out.println("time: " + timer);
+			if(nextProces.getArrivalTime() <= timer) {				
+				for(int i = 0; i < processors.length; i ++) {
+					if(nextProces.getProcessorNumber() == (i + 1)) {
+						System.out.print(" my processor: " + nextProces.getProcessorNumber());
+						if(processors[i].getCurrentUsage() < upperLimit) {
+							processors[i].addProcess(nextProces);
+							System.out.print(" is NOT over limit");
+							
+						}else {
+							System.out.print(" is over limit");
+						}
+						System.out.println("");
+						break;
+					}
+				}
 				nextProces = iterator.next();
+
 			}
-				//brakuje ostatniej linii 
 			
 			if(!iterator.hasNext()) {
 
-				System.out.println("time: " + nextProces.getArrivalTime());
+				//System.out.println("time: " + nextProces.getArrivalTime());
 				break;
 			}
 			timer++;
