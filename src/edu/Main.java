@@ -42,7 +42,12 @@ public class Main {
 					 System.out.print(" current usage: " + processors.get(procNum).getCurrentUsage() + "\n");
 				 }else {
 					 System.out.println("To your own processor");
+
 					 processors.get(nextProces.getProcessorNumber()).addProcess(nextProces);
+					 
+					 System.out.print("OP proces time: " + nextProces.getArrivalTime() + " to p no: " 
+					 + nextProces.getProcessorNumber()  
+					 + " current usage: " + processors.get(nextProces.getProcessorNumber()).getCurrentUsage() + "\n");
 				 }
 				
 				nextProces = iterator.next();
