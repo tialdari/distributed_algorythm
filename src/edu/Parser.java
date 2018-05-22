@@ -40,18 +40,18 @@ public class Parser {
             String line = sc.nextLine();
             
             int arrivalTime = 0;
-            int exitTime = 0;
             int usage = 0;
+            int exitTime = 0;
             int processorNumber = 0;
 
             while(sc.hasNext()) {
 
                 arrivalTime = sc.nextInt();
-                exitTime = sc.nextInt();
                 usage = sc.nextInt();
+                exitTime = sc.nextInt();
                 processorNumber = sc.nextInt();
                 
-                allProcesses.add(new Proces(arrivalTime, exitTime, usage, processorNumber));
+                allProcesses.add(new Proces(arrivalTime, usage, exitTime, processorNumber));
             }
             sc.close();
 

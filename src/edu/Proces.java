@@ -9,15 +9,15 @@ public class Proces {
 	
 	public Proces() {
 		arrivalTime = 0;
-		exitTime = 0;
 		usage = 3;
+		exitTime = 0;
 		processorNumber = 1;
 	}
 	
-	public Proces(int arrivalTime, int exitTime, int usage, int processorNumber) {
+	public Proces(int arrivalTime, int usage, int exitTime, int processorNumber) {
 		this.arrivalTime = arrivalTime;
-		this.exitTime = exitTime;
 		this.usage = usage;
+		this.exitTime = exitTime + arrivalTime;
 		this.processorNumber = processorNumber;
 	}
 

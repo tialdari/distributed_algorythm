@@ -18,6 +18,14 @@ public class Processor {
 		ownProcesses = new ArrayList<Proces>();
 	}
 
+	public Processor(int number) {
+		this.number = number;
+		currentUsage = 0;
+		summedUsage = 0;
+		averageUsage = 0;
+		ownProcesses = new ArrayList<Proces>();
+	}
+	
 	public int getCurrentUsage() {
 		return currentUsage;
 	}
@@ -60,7 +68,7 @@ public class Processor {
 	
 	public boolean addProcess(Proces proces) {
 		
-		ownProcesses.add(proces);
+		//getOwnProcesses().add(proces);
 		
 		//increase the processor's usage by the process's required usage
 		int newUsage = getCurrentUsage() + proces.getUsage();
