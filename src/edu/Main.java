@@ -26,14 +26,20 @@ public class Main {
 		Iterator<Proces> iterator = allProcesses.iterator();
 		Proces nextProces = iterator.next();
 		
-		while(timer < 6946 && iterator.hasNext()) {
+		while(timer < 6945) {
 			
 			if(nextProces.getArrivalTime() <= timer) {
 				
 				System.out.println("time: " + timer);
 				nextProces = iterator.next();
 			}
+				//brakuje ostatniej linii 
 			
+			if(!iterator.hasNext()) {
+
+				System.out.println("time: " + nextProces.getArrivalTime());
+				break;
+			}
 			timer++;
 
 		}
