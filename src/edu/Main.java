@@ -37,8 +37,7 @@ public class Main {
 		int procNum = 0;
 		
 		//do czasu 7100 wszystkie procesy powinny się już wykonać
-		while(timer < 7100) {
-			
+		while(timer < 7300) {
 			
 			//iterujemy po procesorach, żeby w każdej sekundzie dodać aktualne obciążenie i ew. zakończyć procesy
 			for(Processor p : processors) {
@@ -47,6 +46,11 @@ public class Main {
 				p.terminateProcess(timer);
 			}
 			
+			if(!iterator.hasNext()) {
+				timer++;
+				//proces z ostatniej linii, do uzupełnienia
+				continue;
+			}
 		
 			//jeśli w danej sekundzie ma wejść proces, szukamy dla niego procesora
 			if(nextProces.getArrivalTime() <= timer) {	
@@ -62,14 +66,10 @@ public class Main {
 				 }
 				nextProces = iterator.next();
 			}			
-		
-				
-			if(!iterator.hasNext()) {
-				//proces z ostatniej linii, do uzupełnienia
-				continue;
-			}
-			
 			timer++;
+				
+			
+			
 			//koniec pętli
 			 
 		}
