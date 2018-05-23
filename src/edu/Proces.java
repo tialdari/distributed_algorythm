@@ -1,6 +1,8 @@
 package edu;
 
-public class Proces {
+public class Proces {//tu chyba wszystko jasne
+	
+	
 	
 	private int arrivalTime;
 	private int exitTime;

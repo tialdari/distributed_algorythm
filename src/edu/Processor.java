@@ -77,31 +77,32 @@ public class Processor {
 		return true;
 	}
 	
-	public boolean terminateProcess(int time) {
+	public boolean terminateProcess(int time) { 	
 		
 		
 		for(Proces proc : ownProcesses) {
 			if(time == proc.getExitTime()) {
 				
-				//	ownProcesses.remove(proc);
+				//jeśli próbuję usunąć proces, wywala concurrent exception i to się chyba da obejść,
+				//ale właściwie nie jest potrzebne usuwanie tutaj procesy; wystarczy odjąć jego obciążenie i tyle
+				//	ownProcesses.remove(proc); 
 				
 				int newUsage = getCurrentUsage() - proc.getUsage();
 				setCurrentUsage(newUsage);
 			
-
 			}
 		}
 
 		return true;	
 	}
 	
-	public void countUsage() {
+	public void countUsage() {	//metoda do zliczania obciążenia w każdej sekundzie
 				
 		int newSummedUsage = getSummedUsage() + getCurrentUsage();
 		setSummedUsage(newSummedUsage);
 	}
 	
-	public int averageUsage(int time) {
+	public int averageUsage(int time) { //metoda do liczenia średniego obciążenia
 		
 		int averageUsage = summedUsage / time;
 	//	System.out.println("averageUsage: " + averageUsage);

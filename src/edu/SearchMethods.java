@@ -26,25 +26,32 @@ public class SearchMethods {
 		this.migrationNum = migrationNum;
 	}
 
+	
+	//metoda na wejściu otrzymuje kopię listy procesorów z maina, więc oryginalna pozostaje nietknięta
 public int recursiveSearch(ArrayList<Processor> array, Proces proces,  int upperLimit) {
 	
-
+	
+		//jeśli było już 10 zapytań do procesorów, opuść metodę
 		if(array.size() == 20) {
 			return -1;
 		}
 		Random r = new Random();
+		//generujemy losową liczbę z przedziału od zera do aktualnego rozmiary listy
 		int random = r.nextInt(array.size());
 		
+		//jeśli dany procesor jest obciążony poniżej limitu i nie jest to procesor danego procesu, 
+		//dodaj proces do tego procesora i opuść metodę
 		if(array.get(random).getCurrentUsage() < upperLimit && array.get(random).getNumber() != proces.getProcessorNumber()) {
-		//	System.out.println("Ask proc no: " + random + " of usage: " + array.get(random).getCurrentUsage());
-
-			if(array.size() < 30) migrationNum++;
-		//	System.out.println("Accepted");
+			
+			// inkrementuj liczbę migracji
+			migrationNum++;
 			return (array.get(random).getNumber());
 		}else {
+			//jeśli dany procesor jest zajęty szukamy dalej i inkrementujemy liczbę zapytań
 			enquiryNum++;
-		//	System.out.println("Ask proc no: " + random + " of usage: " + array.get(random).getCurrentUsage());
+			//usuwamy element o danym indeksie, żeby wykluczyć go z dalszych poszukiwań
 			 array.remove(random);
+			 //wywołujemy rekursywnie metodę, tym razem z pomniejszoną listą
 			return recursiveSearch(array, proces,  upperLimit);
 		}
 	}

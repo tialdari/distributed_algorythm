@@ -10,25 +10,25 @@ public class Main {
 	
 	public static void main(String [] args) {
 		
+		//parser działa na pewno
 		Parser parser = new Parser("sequence.txt");
 		parser.read();
 		
 		int timer = 0;			//licznik
 		int upperLimit = 60;	 	// zmienna p
-		int migrationNum = 0;
-		int enquiriesNum = 0;
 		
 		
-		
-		List<Processor> processors = new ArrayList<Processor>();	//zawiera wszystkie 30 procesorów
+		//zawiera wszystkie 30 procesorów
+		List<Processor> processors = new ArrayList<Processor>();	
 		
 		for(int i = 0; i < 30; i++) {
 			processors.add(new Processor(i));
 		}
 		
+		//zawiera wszystkie procesy z parsera
 		List<Proces> allProcesses = parser.getAllProcesses();
-		
-		System.out.println("processes number: " + allProcesses.size());
+				
+		//iterator, żeby przejść po liście ze wszystkimi procesami
 		Iterator<Proces> iterator = allProcesses.iterator();
 		Proces nextProces = iterator.next();
 		
@@ -36,8 +36,11 @@ public class Main {
 		
 		int procNum = 0;
 		
-		while(timer < 6945) {
+		//do czasu 7100 wszystkie procesy powinny się już wykonać
+		while(timer < 7100) {
 			
+			
+			//iterujemy po procesorach, żeby w każdej sekundzie dodać aktualne obciążenie i ew. zakończyć procesy
 			for(Processor p : processors) {
 				//System.out.println("summed usage: " + p.getSummedUsage()) ;
 				p.countUsage();
@@ -45,43 +48,44 @@ public class Main {
 			}
 			
 		
+			//jeśli w danej sekundzie ma wejść proces, szukamy dla niego procesora
 			if(nextProces.getArrivalTime() <= timer) {	
 				
 				procNum = sm.recursiveSearch(new ArrayList(processors), nextProces, upperLimit);
-				 if(procNum >= 0) {
+				 
+				//jeśli proces nie znalazł innego procesora niż swój, metoda zwraca - 1, dlatego warunek jest >= 0
+				if(procNum >= 0) {
 					 processors.get(procNum).addProcess(nextProces);
-				//	 System.out.println("to " + procNum + " at time " + timer);
 				 }else {
-				//	 System.out.println("To your own processor");
-
+					 //jeśli nie znaleźliśmy, proces wykonuje się na swoim procesorze
 					 processors.get(nextProces.getProcessorNumber()).addProcess(nextProces);
-					 
 				 }
 				nextProces = iterator.next();
 			}			
 		
 				
 			if(!iterator.hasNext()) {
-				break;
+				//proces z ostatniej linii, do uzupełnienia
+				continue;
 			}
-
+			
 			timer++;
-
+			//koniec pętli
 			 
 		}
 		
-		int averageSummedUsage = 0;
 		
+		int averageSummedUsage = 0; 
+		
+		//zsumowane średnie obciążenia wszystkich procesorów
 		for(int i = 0; i < processors.size(); i++) {
-		//	System.out.println("summed usage: " + processors.get(i).getSummedUsage());
 			averageSummedUsage += processors.get(i).averageUsage(timer);
 		}
 		
+		//System.out.println("averageSummedusage: " + averageSummedUsage);
 		
-		System.out.println("averageSummedusage: " + averageSummedUsage);
-		
+		//średnią globalną liczymy poprzez podzielenie suma średnich przez liczbę procesorów
 		System.out.println("global average usage: " + averageSummedUsage/processors.size());
-		
 		System.out.println("Enquiry number: " + sm.getEnquiryNum());
 		System.out.println("migration number: " + sm.getMigrationNum());
 
