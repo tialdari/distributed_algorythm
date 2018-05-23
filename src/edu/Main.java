@@ -13,18 +13,22 @@ public class Main {
 		Parser parser = new Parser("sequence.txt");
 		parser.read();
 		
-		int timer = 0;
-		int upperLimit = 50;
+		int timer = 0;			//licznik
+		int upperLimit = 60;	 	// zmienna p
 		int migrationNum = 0;
 		int enquiriesNum = 0;
 		
-		ArrayList<Processor> processors = new ArrayList<Processor>();
+		
+		
+		List<Processor> processors = new ArrayList<Processor>();	//zawiera wszystkie 30 procesorów
 		
 		for(int i = 0; i < 30; i++) {
 			processors.add(new Processor(i));
 		}
 		
 		List<Proces> allProcesses = parser.getAllProcesses();
+		
+		System.out.println("processes number: " + allProcesses.size());
 		Iterator<Proces> iterator = allProcesses.iterator();
 		Proces nextProces = iterator.next();
 		
@@ -35,6 +39,7 @@ public class Main {
 		while(timer < 6945) {
 			
 			for(Processor p : processors) {
+				//System.out.println("summed usage: " + p.getSummedUsage()) ;
 				p.countUsage();
 				p.terminateProcess(timer);
 			}
@@ -45,17 +50,13 @@ public class Main {
 				procNum = sm.recursiveSearch(new ArrayList(processors), nextProces, upperLimit);
 				 if(procNum >= 0) {
 					 processors.get(procNum).addProcess(nextProces);
-					// System.out.print(" current usage: " + processors.get(procNum).getCurrentUsage() + "\n");
+				//	 System.out.println("to " + procNum + " at time " + timer);
 				 }else {
-					// System.out.println("To your own processor");
+				//	 System.out.println("To your own processor");
 
 					 processors.get(nextProces.getProcessorNumber()).addProcess(nextProces);
 					 
-					// System.out.print("OP proces time: " + nextProces.getArrivalTime() + " to p no: " 
-				//	 + nextProces.getProcessorNumber()  
-				//	 + " current usage: " + processors.get(nextProces.getProcessorNumber()).getCurrentUsage() + "\n");
 				 }
-				
 				nextProces = iterator.next();
 			}			
 		
@@ -68,6 +69,23 @@ public class Main {
 
 			 
 		}
+		
+		int averageSummedUsage = 0;
+		
+		for(int i = 0; i < processors.size(); i++) {
+		//	System.out.println("summed usage: " + processors.get(i).getSummedUsage());
+			averageSummedUsage += processors.get(i).averageUsage(timer);
+		}
+		
+		
+		System.out.println("averageSummedusage: " + averageSummedUsage);
+		
+		System.out.println("global average usage: " + averageSummedUsage/processors.size());
+		
+		System.out.println("Enquiry number: " + sm.getEnquiryNum());
+		System.out.println("migration number: " + sm.getMigrationNum());
+
+		
 		System.out.println("the end");
 		
 	}

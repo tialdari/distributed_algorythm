@@ -72,7 +72,6 @@ public class Processor {
 		
 		//increase the processor's usage
 		int newUsage = getCurrentUsage() + proces.getUsage();
-		System.out.println("processor " + number + " of usage " + currentUsage + " add usage: " + proces.getUsage());
 		setCurrentUsage(newUsage);
 
 		return true;
@@ -83,16 +82,12 @@ public class Processor {
 		
 		for(Proces proc : ownProcesses) {
 			if(time == proc.getExitTime()) {
-				ownProcesses.remove(proc);
-				//decrease the processor's usage
 				
-				int oldUsage = getCurrentUsage();
+				//	ownProcesses.remove(proc);
+				
 				int newUsage = getCurrentUsage() - proc.getUsage();
 				setCurrentUsage(newUsage);
-			//	System.out.println("time: " + time + "processor no " + number + " of usage " + currentUsage);
-			//	System.out.println("time: " + time + " processor " + number +" old usage: " + oldUsage + ", process usage: " + proces.getUsage() 
-			//	+ ", new usage: " + newUsage);
-				System.out.println("processor " + number + " substract usage: " + proc.getUsage() + " and get : " + currentUsage);
+			
 
 			}
 		}
@@ -104,7 +99,12 @@ public class Processor {
 				
 		int newSummedUsage = getSummedUsage() + getCurrentUsage();
 		setSummedUsage(newSummedUsage);
+	}
+	
+	public int averageUsage(int time) {
 		
-		//System.out.println("the usage of " + number + " is " + summedUsage);
+		int averageUsage = summedUsage / time;
+	//	System.out.println("averageUsage: " + averageUsage);
+		return averageUsage;
 	}
 }
