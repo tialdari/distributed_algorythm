@@ -33,32 +33,39 @@ public class Main {
 		int procNum = 0;
 		
 		while(timer < 6945) {
+			
+			for(Processor p : processors) {
+				p.countUsage();
+				p.terminateProcess(timer);
+			}
+			
 		
 			if(nextProces.getArrivalTime() <= timer) {	
 				
 				procNum = sm.recursiveSearch(new ArrayList(processors), nextProces, upperLimit);
 				 if(procNum >= 0) {
 					 processors.get(procNum).addProcess(nextProces);
-					 System.out.print(" current usage: " + processors.get(procNum).getCurrentUsage() + "\n");
+					// System.out.print(" current usage: " + processors.get(procNum).getCurrentUsage() + "\n");
 				 }else {
-					 System.out.println("To your own processor");
+					// System.out.println("To your own processor");
 
 					 processors.get(nextProces.getProcessorNumber()).addProcess(nextProces);
 					 
-					 System.out.print("OP proces time: " + nextProces.getArrivalTime() + " to p no: " 
-					 + nextProces.getProcessorNumber()  
-					 + " current usage: " + processors.get(nextProces.getProcessorNumber()).getCurrentUsage() + "\n");
+					// System.out.print("OP proces time: " + nextProces.getArrivalTime() + " to p no: " 
+				//	 + nextProces.getProcessorNumber()  
+				//	 + " current usage: " + processors.get(nextProces.getProcessorNumber()).getCurrentUsage() + "\n");
 				 }
 				
 				nextProces = iterator.next();
 			}			
-			
+		
+				
 			if(!iterator.hasNext()) {
 				break;
 			}
 
 			timer++;
-			
+
 			 
 		}
 		System.out.println("the end");

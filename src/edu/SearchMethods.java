@@ -14,7 +14,7 @@ public int recursiveSearch(ArrayList<Processor> array, Proces proces,  int upper
 		int random = r.nextInt(array.size());
 		
 		if(array.get(random).getCurrentUsage() < upperLimit && array.get(random).getNumber() != proces.getProcessorNumber()) {
-			System.out.print("proces time: " + proces.getArrivalTime() + " to p no: " + array.get(random).getNumber());
+		//	System.out.print("proces time: " + proces.getArrivalTime() + " to p no: " + array.get(random).getNumber());
 			return (array.get(random).getNumber());
 		}else {
 			 array.remove(random);

@@ -68,15 +68,43 @@ public class Processor {
 	
 	public boolean addProcess(Proces proces) {
 		
-		//getOwnProcesses().add(proces);
+		ownProcesses.add(proces);
 		
-		//increase the processor's usage by the process's required usage
+		//increase the processor's usage
 		int newUsage = getCurrentUsage() + proces.getUsage();
+		System.out.println("processor " + number + " of usage " + currentUsage + " add usage: " + proces.getUsage());
 		setCurrentUsage(newUsage);
+
+		return true;
+	}
+	
+	public boolean terminateProcess(int time) {
 		
-		int newSummedUsage = getSummedUsage() + newUsage;
+		
+		for(Proces proc : ownProcesses) {
+			if(time == proc.getExitTime()) {
+				ownProcesses.remove(proc);
+				//decrease the processor's usage
+				
+				int oldUsage = getCurrentUsage();
+				int newUsage = getCurrentUsage() - proc.getUsage();
+				setCurrentUsage(newUsage);
+			//	System.out.println("time: " + time + "processor no " + number + " of usage " + currentUsage);
+			//	System.out.println("time: " + time + " processor " + number +" old usage: " + oldUsage + ", process usage: " + proces.getUsage() 
+			//	+ ", new usage: " + newUsage);
+				System.out.println("processor " + number + " substract usage: " + proc.getUsage() + " and get : " + currentUsage);
+
+			}
+		}
+
+		return true;	
+	}
+	
+	public void countUsage() {
+				
+		int newSummedUsage = getSummedUsage() + getCurrentUsage();
 		setSummedUsage(newSummedUsage);
 		
-		return true;
+		//System.out.println("the usage of " + number + " is " + summedUsage);
 	}
 }
