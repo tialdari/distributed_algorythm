@@ -11,7 +11,8 @@ public class Main {
 	public static void main(String [] args) {
 		
 		//parser działa na pewno
-		Parser parser = new Parser("sequence.txt");
+		final String fileName = "sequence.txt";
+		Parser parser = new Parser(fileName);
 		parser.read();
 		
 		int timer = 0;			//licznik
@@ -37,7 +38,8 @@ public class Main {
 		int procNum = 0;
 		
 		//do czasu 7100 wszystkie procesy powinny się już wykonać
-		while(timer < 7300) {
+		final int maxCounterValue = 7300;
+		while(timer < maxCounterValue) {
 			
 			//iterujemy po procesorach, żeby w każdej sekundzie dodać aktualne obciążenie i ew. zakończyć procesy
 			for(Processor p : processors) {
@@ -55,7 +57,7 @@ public class Main {
 			//jeśli w danej sekundzie ma wejść proces, szukamy dla niego procesora
 			if(nextProces.getArrivalTime() <= timer) {	
 				
-				procNum = sm.recursiveSearch(new ArrayList(processors), nextProces, upperLimit);
+				procNum = sm.recursiveSearch(new ArrayList<>(processors), nextProces, upperLimit);
 				 
 				//jeśli proces nie znalazł innego procesora niż swój, metoda zwraca - 1, dlatego warunek jest >= 0
 				if(procNum >= 0) {
